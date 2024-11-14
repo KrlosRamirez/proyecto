@@ -1,0 +1,77 @@
+{% load static %} 
+
+                <aside class="sidebar">
+                    <div class="sidebar-container">
+                        <div class="sidebar-header">
+                            <div class="brand">
+
+                                <div class="logo">
+
+                                </div> Inventario
+                            </div>
+                        </div>
+                        <nav class="menu">
+                            <ul class="sidebar-menu metismenu" id="sidebar-menu">
+                                <li class="active">
+                                    <a href="{% url 'medicamentos:bienvenido' %}">
+                                        <i class="fa fa-home"></i> Bienvenido </a>
+                                </li>
+                                
+
+
+
+                                <!-- Sub-menu de Registrar -->
+                                <li>
+                                    <a href="">
+                                        <i></i>  Registrar
+                                        <i class="fa arrow"></i>
+                                    </a>
+                                    <ul class="sidebar-nav">
+                                        <li><a href="{% url 'medicamentos:lista_benefactores' %}"><i class="fa fa-users"></i>  Benefactores</a></li>
+                                        {% comment %} <div class="dropdown-divider"></div>
+                                        <li><a href="{% url 'medicamentos:lista_proveedores' %}"><i class="fa fa-users"></i>  Proveedores</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li><a href="{% url 'medicamentos:lista_donantes' %}"><i class="fa fa-shopping-bag"></i>  Donantes</a></li> {% endcomment %}
+                                        <div class="dropdown-divider"></div>
+                                        <li><a href="{% url 'medicamentos:lista_destinatarios' %}"><i class="fa fa-users"></i>  Beneficiario</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li><a href="{% url 'medicamentos:lista_medicamentos' %}"><i class="fa fa-shopping-bag"></i>  Medicamentos</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li><a href="{% url 'medicamentos:lista_insumos' %}"><i class="fa fa-shopping-bag"></i>  Insumos</a></li>
+                                    </ul>
+                                </li>
+                                <!--Fin de sub-menu de Registrar -->
+
+
+                                <!-- Sub-menu de Movimientos -->
+                                <li>
+                                    <a href="">
+                                        <i></i>  Movimientos
+                                        <i class="fa arrow"></i>
+                                    </a>
+                                    <ul class="sidebar-nav">
+                                        <li><a href="{% url 'medicamentos:entregas' %}"><i class="fa fa-truck"></i>  Entrega</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li><a href="{% url 'medicamentos:bitacora' %}"><i class="fa fa-shopping-bag"></i>  Bitácora</a></li>
+                                    </ul>
+                                </li>
+                                <!--Fin de sub-menu de Movimientos -->
+
+
+                                <!-- Sub-menu de Reportes -->
+                                <li>
+                                    <a href="">
+                                        <i></i>  Reportes
+                                        <i class="fa arrow"></i>
+                                    </a>
+                                    <ul class="sidebar-nav">
+                                        <li><a href=""><i class="fa fa-truck"></i>  Reportes Generales</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li><a href=""><i class="fa fa-truck"></i>  Reportes Especificos</a></li>
+                                    </ul>
+                                </li>
+                                <!--Fin de sub-menu de Reportes -->
+                            </ul>
+                        </nav>
+                    </div>
+                </aside>

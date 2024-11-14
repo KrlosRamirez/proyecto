@@ -1,0 +1,120 @@
+    input[type="submit"] {
+      border: 1px solid red;
+      margin-top: 26px;
+      background: #a01818;
+      color: #FFF;
+    }
+
+    .FormGroup {
+      width: 100%;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .FormGroup input {
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      height: 40px;
+      width: 50%;
+    }
+
+    .FormGroup select {
+      width: 50%;
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      height: 40px;
+    }
+    .FormGroup date {
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      height: 40px;
+    }
+    .color{
+      background-color: blue;
+    }
+/*
+css resgistro-editar
+ */
+    <body>
+<body class="sidebar-mini fixed">
+    <style type="text/css">
+    input[type="submit"] {
+    border: 1px solid red;
+    margin-top: 26px;
+    background: #a01818;
+    color: #FFF;
+    width:100%;
+
+    }
+
+    .FormGroup {
+      width: 100%;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .FormGroup input {
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      height: 40px;
+      width: 50%;
+    }
+
+    .FormGroup select {
+      width: 50%;
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      height: 40px;
+    }
+    .FormGroup date {
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      height: 40px;
+    }
+      </style>
+
+
+/*
+css resgistro-mostrar
+ */
+
+
+      <body>
+<body class="sidebar-mini fixed">
+    <style type="text/css">
+    input[type="submit"] {
+    border: 1px solid red;
+    margin-top: 26px;
+    background: #a01818;
+    color: #FFF;
+    width:100%;
+
+    }
+
+    .FormGroup {
+      width: 100%;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .FormGroup input {
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      height: 40px;
+      width: 50%;
+    }
+
+    .FormGroup select {
+      width: 50%;
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      height: 40px;
+    }
+    .FormGroup date {
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      height: 40px;
+    }
+      </style>
+
+

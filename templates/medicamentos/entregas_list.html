@@ -1,0 +1,83 @@
+{% extends "comun/base.html" %}
+
+{% block body %}
+{% load static %}
+
+<article class="content responsive-tables-page">
+    <!-- Título y descripción de la página -->
+    <div class="title-block">
+        <h1 class="title">Listado de Entregas</h1>
+        <p class="title-description">Verifique las Entregas agregadas</p>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-block">
+                        <!-- Título de la tarjeta y botón para registrar una nueva entrega -->
+                        <div class="card-title-block">
+                            <h3 class="title"></h3>
+                            <div class="col-md-12">
+                                <a href="{% url 'medicamentos:agregar_entrega' %}">
+                                    <button type="button" class="btn btn-oval btn-primary">Registrar Entrega</button>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de entregas -->
+                        <section class="example">
+                            <div class="table-responsive">
+                                <table id="example2" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Destinatario</th>
+                                            <th>Fecha de Entrega</th>
+                                            <th>Medicamentos</th>
+                                            <th>Observaciones</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Iteración sobre las entregas -->
+                                        {% for entrega in entregas %}
+                                        <tr>
+                                            <td>{{ entrega.codigo }}</td>
+                                            <td>{{ entrega.destinatario.nombre }} {{ entrega.destinatario.apellido }}</td>
+                                            <td>{{ entrega.fecha_entrega }}</td>
+                                            <td>
+                                                <ul class="list-unstyled mb-0">
+                                                    <!-- Iteración sobre los ítems de medicamentos entregados -->
+                                                    {% for item in entrega.items.all %}
+                                                    <li>{{ item.medicamento.nombre }} - {{ item.cantidad }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </td>
+                                            <td>{{ entrega.observaciones }}</td>
+                                            
+                                            <!-- Opciones (menú desplegable) -->
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-wrench"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="{% url 'medicamentos:detalle_entrega' entrega.pk %}">Detalle Entrega</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+
+{% endblock %}

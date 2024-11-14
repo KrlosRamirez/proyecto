@@ -1,0 +1,98 @@
+{% extends "comun/base.html" %}
+
+{% block content %}
+<article class="content forms-page">
+    <!-- Título y descripción del contenido -->
+    <div class="title-block">
+        {% comment %} 
+        <h3 class="title">Destinatario número #{{ destinatario.id }}</h3> 
+        {% endcomment %}
+        <p class="title-description">Datos del destinatario seleccionado</p>
+    </div>
+
+    <!-- Sección principal -->
+    <section class="section">
+        <div class="row">
+
+            <!-- Botón para volver a la lista de destinatarios -->
+            <div class="col-md-12">
+                <a href="{% url 'medicamentos:lista_destinatarios' %}" class="btn btn-info btn-lg">
+                    <em class="fa fa-angle-left"></em>
+                    Volver a Destinatario
+                </a>
+            </div>
+
+            <!-- Tarjeta con el documento de identidad del destinatario -->
+            <div class="col-xl-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <div class="header-block">
+                            <p class="title">Documento de Identidad</p>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <p>{{ destinatario.cedula_identidad }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta con el nombre del destinatario -->
+            <div class="col-xl-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <div class="header-block">
+                            <p class="title">Nombres</p>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <p>{{ destinatario.nombre }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta con la fecha de nacimiento del destinatario -->
+            <div class="col-xl-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <div class="header-block">
+                            <p class="title">Fecha de Nacimiento</p>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <p>{{ destinatario.fecha_nacimiento }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta con la dirección del destinatario -->
+            <div class="col-xl-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <div class="header-block">
+                            <p class="title">Dirección</p>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <p>{{ destinatario.direccion }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta con el teléfono del destinatario -->
+            <div class="col-xl-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <div class="header-block">
+                            <p class="title">Teléfono</p>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <p>{{ destinatario.telefono }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</article>
+{% endblock %}

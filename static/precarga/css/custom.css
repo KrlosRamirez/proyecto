@@ -1,0 +1,8 @@
+.qtip-bootstrap{
+    width: 375px;
+    height: 225px;
+}
+
+.qtip-bootstrap .qtip-content{
+    font-size: 15px;
+}

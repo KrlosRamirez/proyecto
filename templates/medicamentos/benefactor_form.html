@@ -1,0 +1,183 @@
+{% extends "comun/base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+<div class="container my-4">
+    <div class="title-block text-center">
+        {% if benefactor %}
+        <h3 class="title">Editar Benefactor</h3>
+        <p class="title-description">Cambie los datos del Benefactor</p>
+        {% else %}
+        <h3 class="title">Registrar Benefactor</h3>
+        <p class="title-description">Complete los datos del Benefactor</p>
+        {% endif %}
+    </div>
+    
+    <section class="section">
+        <div class="row sameheight-container">
+            <div class="col-md-12">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="card card-primary">
+                    <div class="card-header"> 
+                        <div class="header-block">
+                            <em class="fa fa-check"></em>
+                            <p class="title">{{ message }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <div class="card card-block sameheight-item">
+                    <form method="post" class="form" role="form">
+                        {% csrf_token %}
+                        
+                        {# Mostrar errores no relacionados con campos específicos #}
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Código</label>
+                                    {% if form.instance.codigo %}
+                                        <p>{{ form.instance.codigo }}</p>
+                                    {% else %}
+                                        <p>Se generará automáticamente al guardar</p>
+                                    {% endif %}
+                                </div>                                
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{ form.tipo.label }}</label>
+                                    {{ form.tipo|add_class:"form-control" }}
+                                    {% if form.tipo.errors %}
+                                        <span class="help-block text-danger">{{ form.tipo.errors }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6" id="cedula-group">
+                                <div class="form-group">
+                                    <label>{{ form.cedula.label }}</label>
+                                    {{ form.cedula|add_class:"form-control" }}
+                                    {% if form.cedula.errors %}
+                                        <span class="help-block text-danger">{{ form.cedula.errors }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6" id="rif-group">
+                                <div class="form-group">
+                                    <label>{{ form.rif.label }}</label>
+                                    {{ form.rif|add_class:"form-control" }}
+                                    {% if form.rif.errors %}
+                                        <span class="help-block text-danger">{{ form.rif.errors }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{ form.nombre.label }}</label>
+                                    {{ form.nombre|add_class:"form-control" }}
+                                    {% if form.nombre.errors %}
+                                        <span class="help-block text-danger">{{ form.nombre.errors }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{ form.direccion.label }}</label>
+                                    {{ form.direccion|add_class:"form-control" }}
+                                    {% if form.direccion.errors %}
+                                        <span class="help-block text-danger">{{ form.direccion.errors }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{ form.telefono.label }}</label>
+                                    {{ form.telefono|add_class:"form-control" }}
+                                    {% if form.telefono.errors %}
+                                        <span class="help-block text-danger">{{ form.telefono.errors }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{ form.email.label }}</label>
+                                    {{ form.email|add_class:"form-control" }}
+                                    {% if form.email.errors %}
+                                        <span class="help-block text-danger">{{ form.email.errors }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <center>
+                            <div class="dropdown-divider"></div>
+                            <div class="form-group">
+                                
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <a href="{% url 'medicamentos:lista_benefactores' %}" class="btn btn-secondary">Cancelar</a>
+                            </div>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    function toggleFields() {
+        const tipo = document.getElementById('id_tipo').value;
+        const cedulaGroup = document.getElementById('cedula-group');
+        const rifGroup = document.getElementById('rif-group');
+
+        if (tipo === 'persona') {
+            cedulaGroup.style.display = 'block';
+            rifGroup.style.display = 'none';
+        } else if (tipo === 'comercio') {
+            cedulaGroup.style.display = 'none';
+            rifGroup.style.display = 'block';
+        } else {
+            cedulaGroup.style.display = 'none';
+            rifGroup.style.display = 'none';
+        }
+    }
+
+    document.getElementById('id_tipo').addEventListener('change', toggleFields);
+    document.addEventListener('DOMContentLoaded', toggleFields);
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const nombreField = document.querySelector('#id_nombre');  // Reemplaza con el ID correcto de tu campo
+
+        nombreField.addEventListener('keypress', function (event) {
+            if (!/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/.test(event.key)) {
+                event.preventDefault();  // Evita la entrada de números o caracteres no permitidos
+            }
+        });
+    });
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        const telefonoField = document.querySelector('#id_telefono');  // Reemplaza con el ID correcto de tu campo
+
+        telefonoField.addEventListener('keypress', function (event) {
+            if (!/[0-9]/.test(event.key)) {
+                event.preventDefault();  // Evita que las teclas no numéricas se ingresen
+            }
+        });
+    });
+
+</script>
+{% endblock %}

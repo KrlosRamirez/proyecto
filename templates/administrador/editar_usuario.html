@@ -1,0 +1,138 @@
+{% extends 'comun/base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}INSCONTROL{% endblock title %}
+
+{% block body %}
+<div class="col-md-12 wow fadeInUp animated" style="background: #122f3b; padding: 0.3cm 0.5cm; margin-bottom: 0.4cm; border-radius: 12px;">
+    <h2 class="text-center text-white">
+        <span class="glyphicon glyphicon-th-list"></span> MODIFICAR <span style="color:#F5B041;">Usuario</span>
+    </h2>
+</div>
+
+<br><br>
+
+<section>
+    <div class="section-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="form" method="post" autocomplete="off"> 
+                            {% csrf_token %}
+                            <div class="row">
+
+                                <!-- Cedula -->
+                                <div class="col-sm-6">
+                                    <span class="help-block text-danger">{{ form.errors.username }}</span>
+                                    <div class="form-group floating-label">
+                                        {{ form.username|add_class:'form-control'|attr:"maxlength:8"|attr:"minlength:8"|attr:'validate:NUMEROS,ESPACIO' }}
+                                        <label for="fiels_label">Cedula(*)</label>
+                                    </div>
+                                </div>
+
+                                <!-- Nombre -->
+                                <div class="col-sm-6">
+                                    <span class="help-block text-danger">{{ form.errors.first_name }}</span>
+                                    <div class="form-group floating-label">
+                                        {{ form.first_name|add_class:'form-control'|attr:'validate:LETRAS,ENTER,ESPACIO' }}
+                                        <label for="fiels_label">{{ form.first_name.label }}</label>
+                                    </div>
+                                </div>
+
+                                <!-- Apellido -->
+                                <div class="col-sm-6">
+                                    <span class="help-block text-danger">{{ form.errors.last_name }}</span>
+                                    <div class="form-group floating-label">
+                                        {{ form.last_name|add_class:'form-control'|attr:'validate:LETRAS,ENTER,ESPACIO' }}
+                                        <label for="fiels_label">{{ form.last_name.label }}</label>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-sm-6">
+                                    <span class="help-block text-danger">{{ form.errors.email }}</span>
+                                    <div class="form-group floating-label">
+                                        {{ form.email|add_class:'form-control' }}
+                                        <label for="fiels_label">{{ form.email.label }}</label>
+                                    </div>
+                                </div>
+
+                                <!-- Contraseña -->
+                                <div class="col-sm-6">
+                                    <span class="help-block text-danger">{{ form.errors.password1 }}</span>
+                                    <div class="form-group floating-label">
+                                        {{ form.password1|add_class:'form-control' }}
+                                        <label for="fiels_label">{{ form.password1.label }}</label>
+                                    </div>
+                                </div>
+
+                                <!-- Confirmar Contraseña -->
+                                <div class="col-sm-6">
+                                    <span class="help-block text-danger">{{ form.errors.password2 }}</span>
+                                    <div class="form-group floating-label">
+                                        {{ form.password2|add_class:'form-control' }}
+                                        <label for="fiels_label">{{ form.password2.label }}</label>
+                                    </div>
+                                </div>
+
+                                <!-- Roles -->
+                                <div class="col-sm-6">
+                                    <div class="form-group floating-label" data-toggle="tooltip" title="Seleccione al Director">
+                                        {{ form.is_director|add_class:'form-control' }}
+                                        <label for="fiels_label">{{ form.is_director.label }}</label>
+                                        <span class="help-block text-danger">{{ form.errors.is_director }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group floating-label" data-toggle="tooltip" title="Seleccione a la Secretaria">
+                                        {{ form.is_secretaria|add_class:'form-control' }}
+                                        <label for="fiels_label">{{ form.is_secretaria.label }}</label>
+                                        <span class="help-block text-danger">{{ form.errors.is_secretaria }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Botones -->
+                                <div class="col-md-12 d-flex gap-3">
+                                  <button class="btn btn-primary btn-oval" type="submit">Guardar información</button>
+                                  <a href="{% url 'usuarios:list' %}" class="btn btn-secondary btn-oval">Cancelar</a>
+                              </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function Number(e) {
+    const tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 8) return true;
+    const patron = /[0-9]/;
+    return patron.test(String.fromCharCode(tecla));
+}
+
+function letra(e) {
+    const tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 8) return true;
+    const patron = /[A-Za-z]/;
+    return patron.test(String.fromCharCode(tecla));
+}
+
+$(document).ready(function() {
+    $('#id_buscalo').hide(3000).show(1000);
+});
+</script>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

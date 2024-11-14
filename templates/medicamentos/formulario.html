@@ -1,0 +1,9 @@
+<div class="form-group">
+    {{ form.campo.label_tag }}
+    {{ form.campo|add_class:"form-control" }}
+    {% if form.campo.errors %}
+        <div class="text-danger">
+            {{ form.campo.errors }}
+        </div>
+    {% endif %}
+</div>

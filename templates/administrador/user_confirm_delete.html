@@ -1,0 +1,101 @@
+
+{% extends  'comun/base.html' %}
+
+{% load static %}
+
+{% load widget_tweaks %}
+
+
+{%block title%}INSCONTROL{% endblock title%}
+
+{% block body%} 
+
+
+<div align="center" class="col-md-3" style="padding: 0.2cm 0cm 0cm 0cm; width:100%; border-radius: 12px;" >
+    </div>
+    <div class="col-md-12 wow fadeInUp animated" style="background: #122f3b;  padding: 0.3cm 0.5cm 0cm 0.5cm; margin: 0cm 0cm 0.4cm 0cm; width:100%; border-radius: 12px;" >
+     <h2 align="center" style="color:white"><span class="glyphicon glyphicon-th-list"></span> ELIMINAR <span style="color:#F5B041;">Usuario</span> </h2>
+        </div>
+    <br>
+    <br>
+<center>
+        <section>
+          <div class="section-body">
+            <div class="row">
+              <!-- BEGIN  - FORM -->
+              <div class="col-lg-12 syle">
+                <div class="card">
+                  <div class="card-body">
+                    <form class="form" role="form" action="" method="post"> {% csrf_token %}
+                      <div class="row">
+
+
+                        <div class="col-sm-6">
+                            <div class="form-group floating-label  ">
+                              {{ object.username}}
+                          <label for="fiels_label">Afiliado(*):</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group floating-label ">
+                            {{ object.first_name}}
+                          <label for="fiels_label">Codigo(*):</label>
+                            </div>        
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <div class="form-group floating-label ">
+                            {{ object.last_name}}
+                          <label for="fiels_label">Nombres(*):</label>
+                            </div>        
+                          </div>
+
+                          <div class="col-sm-6">
+                            <div class="form-group floating-label ">
+                            {{ object.email}}
+                          <label for="fiels_label">Apellidos(*):</label>
+                            </div>        
+                          </div>
+
+
+
+                        
+
+                    
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <button class="btn btn-primary btn-block" type="submit">Eliminar</button>
+                              </div>
+                              <div class="col-md-6">
+                                  <a class="btn btn-danger btn-block" href="{% url 'usuarios:list' %}">
+                                     Cancelar
+                                 </a>
+                              </div>
+                          </div>
+                        
+              
+                      </div>
+                    </form>
+                  </div><!--end .card-body -->
+                </div><!--end .card -->
+              </div><!--end .col -->
+              <!-- END FORM - TIME ON SITE -->
+            </div><!--end .row -->
+          </div><!--end .section-body -->
+        </section>
+<script src="{% static 'base/js/validar.js' %}"></script>
+<script src="{% static 'base/js/validfecha.js' %}"></script>
+<script src="{% static 'base/js/alertify.js' %}"></script>
+
+        
+{% endblock %}
+
+
+
+
+
+
+
+

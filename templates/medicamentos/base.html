@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+    {% if messages %}
+    <div class="container my-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <meta charset="UTF-8">
+    <title>{% block title %}Inventario{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/app-purple.css' %}">
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #343a40;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar a {
+            color: #ffffff;
+            padding: 15px;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+        .sidebar h2 {
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            margin: 0;
+            background-color: #33485e;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+        }
+    </style>
+    {% block extra_css %}
+    {% endblock %}
+</head>
+<body>
+    <div class="mt-auto px-3 pb-3">
+        {% if user.is_authenticated %}
+            <p class="text-white">Hola, {{ user.username }}</p>
+            <a href="" class="text-white">Cerrar Sesión</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="text-white">Iniciar Sesión</a><br>
+            <a href="{% url 'registro' %}" class="text-white">Registrarse</a>
+        {% endif %}
+    </div>
+    
+    <div class="sidebar">
+        <h2>Menú</h2>
+        {% if user.is_authenticated %}
+            <a href="{% url 'medicamentos:lista_medicamentos' %}">Medicamentos</a>
+            <a href="{% url 'medicamentos:entregas' %}">Entregas</a>
+            <a href="{% url 'medicamentos:lista_proveedores' %}">Proveedores</a>
+            <a href="{% url 'medicamentos:lista_donantes' %}">Donantes</a>
+            <a href="{% url 'medicamentos:lista_insumos' %}">Insumos</a>
+            <a href="{% url 'medicamentos:bitacora' %}">Bitácora</a>
+            <a href="{% url 'medicamentos:agregar_destinatario' %}">Registro de Destinatario</a>
+        {% endif %}   
+    </div>
+
+    <div class="content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}
+    {% endblock %}
+</body>
+</html>

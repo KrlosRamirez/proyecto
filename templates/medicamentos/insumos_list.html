@@ -1,0 +1,72 @@
+{% extends "comun/base.html" %}
+{% block body %}
+
+{% load static %}
+
+
+
+                <article class="content responsive-tables-page">
+                    <div class="title-block">
+                        <h1 class="title"> Listado de Insumo </h1>
+                        <p class="title-description"> Verifique los Insumo agregados </p>
+                    </div>
+                    <section class="section">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="card-title-block">
+                                            <h3 class="title"></h3>
+                                            <div class="col-md-12">
+                                                <a href="{% url 'medicamentos:agregar_insumo' %}">
+                                                <button type="button" class="btn btn-oval btn-primary">Registrar Insumo</button>
+                                            </a>
+                                            </div>
+                                        </div>
+                                        <section class="example">
+                                            <div class="table-responsive">
+                                                <table id="example2" class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Código</th>
+                                                            <th>Donante</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Fecha de Recepción</th>
+                                                            <th>Descripción</th>
+                                                            <th>Opciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for insumo in insumos %}
+                                                        <tr>
+                                                            <td>{{ insumo.pk }}</td>
+                                                            <td>{{ insumo.donante.nombre }} {{ insumo.donante.apellido }}</td>
+                                                            <td>{{ insumo.cantidad }}</td>
+                                                            <td>{{ insumo.fecha_recepcion }}</td>
+                                                            <td>{{ insumo.descripcion }}</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></button>
+                                                                    <!-- <span class="sr-only">Abrir menu</span> -->
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item" href="{% url 'medicamentos:editar_insumo' insumo.pk %}">Editar Insumo</a>
+                                                                        {% comment %} <a class="dropdown-item" href="{% url 'medicamentos:eliminar_ininsumo' insumo.pk %}">Eliminar insumo</a> {% endcomment %}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                </article>
+{% endblock %}
+

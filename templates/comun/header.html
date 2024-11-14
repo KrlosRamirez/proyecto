@@ -1,0 +1,36 @@
+                <header class="header">
+                    <div class="header-block header-block-collapse d-lg-none d-xl-none">
+                        <button class="collapse-btn" id="sidebar-collapse-btn">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+
+                    <div class="header-block header-block-nav">
+                        <ul class="nav-profile">
+                        <!-- NOTIFICACIONES -->        
+
+                        <!-- FIN DE LAS NOTIFICACIONES -->
+                    {% if request.user.is_superuser %}
+
+                        <!-- NOMBRE DEL USUARIO ACTUAL -->
+                            <li class="profile dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <em class="fa fa-user"></em>
+                                    <span class="name"> {{ username }} </span>
+                                </a>
+                                <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
+
+                                    <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{% url 'usuarios:list'%}"><i class="fa fa-users icon"></i> Usuario 
+                                        </a>
+                                            
+                                    <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href=""><i class="fa fa-power-off icon"></i> Cerrar sesion 
+                                        </a>
+                                </div>
+                            {% endif %}
+
+                            </li>
+                        </ul>
+                    </div>
+                </header>

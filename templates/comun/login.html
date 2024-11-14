@@ -1,0 +1,97 @@
+{% load static %} 
+{% include "comun/estilos.html" %}
+{% load widget_tweaks %}
+
+{%block title%}{% endblock title%}
+
+{% block content %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+    <body>
+        <div class="auth">
+            <div class="auth-container">
+                <div class="card">
+                    <header class="auth-header">
+                        <h1 class="auth-title">
+                            <div class="logo">
+                                <span class="l l1"></span>
+                                <span class="l l2"></span>
+                                <span class="l l3"></span>
+                                <span class="l l4"></span>
+                                <span class="l l5"></span>
+                            </div> Inventario
+                        </h1>
+                    </header>
+                    <div class="auth-content">
+                        <p class="text-center"></p>
+                        <form id="login-form" autocomplete="off" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="{{ form.username.id_for_label }}">Usuario:</label>
+                                <input type="Number"  class="form-control" name="username" id="username" placeholder="Usuario" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="{ form.password.id_for_label }}">Password</label>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-block btn-primary">Iniciar sesion</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reference block for JS -->
+        <div class="ref" id="ref">
+            <div class="color-primary"></div>
+            <div class="chart">
+                <div class="color-primary"></div>
+                <div class="color-secondary"></div>
+            </div>
+        </div>
+
+    </body>
+</html>
+
+
+
+<link href="{% static 'sweetalert.css' %}" rel="stylesheet" />
+<script src="{% static 'sweetalert-dev.js' %}"></script>
+
+<script type="text/javascript">
+
+function Number(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8){
+        return true;
+    }
+        
+    patron =/[0-9]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+</script>
+<script>
+function letra(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8){
+        return true;
+    }
+        
+    patron =/[A-Za-z]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+</script>
+      {% if messages %}
+        {% for message in messages %}
+          {% autoescape off %}{{ message }}{% endautoescape %}
+        {% endfor %}
+      {% endif %}
+
+    <!-- END LOGIN SECTION -->
+{% endblock %}

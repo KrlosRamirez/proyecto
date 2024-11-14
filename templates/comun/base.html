@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<body>
+        <div class="main-wrapper">
+            <div class="app" id="app">
+            {% include "comun/estilos.html" %}
+            {% include "comun/header.html" %}
+            {% include "comun/sidebar.html" %}
+            {% block content %}
+            {% endblock %}
+            {% block body %}
+            {% endblock %}
+            {% include "comun/footer.html" %}
+            {% include "comun/modal.html" %}
+            {% include "comun/scripts.html" %}
+            </div>
+        </div> <!-- Fin de la pantalla -->
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    <!-- Controla lo de los colores aparentemente-->
+        <div class="ref" id="ref">
+            <div class="color-primary"></div>
+            <div class="chart">
+                <div class="color-primary"></div>
+                <div class="color-secondary"></div>
+            </div>
+        </div> <!-- Fin de la cosa esta-->
+        
+</body>
+</html>
+
+
+
+
+
+
+
+

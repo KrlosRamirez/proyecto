@@ -1,0 +1,75 @@
+{% extends "comun/base.html" %}
+{% block body %}
+
+<!-- NO MODIFICAR ---------------------------------->
+{% load static %}
+<script src='{% static "js/Eliminar.js" %}'></script>
+<!-- FIN DE JAVASCRIPT ------------------------------------>
+
+                <article class="content responsive-tables-page">
+                    <div class="title-block">
+                        <h1 class="title"> Listado de Beneficiario </h1>
+                        <p class="title-description"> Verifique los Beneficiario agregados </p>
+                    </div>
+                    <section class="section">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="card-title-block">
+                                            <h3 class="title"></h3>
+                                            <div class="col-md-12">
+                                                <a href="{% url 'medicamentos:agregar_destinatario' %}">
+                                                <button type="button" class="btn btn-oval btn-primary">Registrar Beneficiario</button>
+                                            </a>
+                                            </div>
+                                        </div>
+                                        <section class="example">
+                                            <div class="table-responsive">
+                                                <table id="example2" class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Documento de Identidad</th>
+                                                            <th>Nombre</th>
+                                                            <th>Fecha de Nacimiento</th>
+                                                            <th>Dirección</th>
+                                                            <th>Telefono</th>
+                                                            <th>Opciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for destinatario in destinatarios %}
+                                                        <tr>
+                                                            <td>{{ destinatario.cedula_identidad }}</td>
+                                                            <td>{{ destinatario.nombre }}</td>
+                                                            <td>{{ destinatario.fecha_nacimiento }}</td>
+                                                            <td>{{ destinatario.direccion }}</td>
+                                                            <td>{{ destinatario.telefono }}</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></button>
+                                                                    <!-- <span class="sr-only">Abrir menu</span> -->
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item" href="{% url 'medicamentos:detalle_destinatario' destinatario.pk %}">Detalle Beneficiario</a>
+                                                                        <div class="dropdown-divider"></div>
+                                                                        <a class="dropdown-item" href="{% url 'medicamentos:editar_destinatario' destinatario.pk %}">Editar Beneficiario</a>
+                                                                        <div class="dropdown-divider"></div>
+                                                                        <a class="dropdown-item" href="{% url 'medicamentos:eliminar_destinatario' destinatario.pk %}">Eliminar destinatario</a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+
+{% endblock %}
+

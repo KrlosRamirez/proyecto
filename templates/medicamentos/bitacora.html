@@ -1,0 +1,53 @@
+{% extends "comun/base.html" %}
+{% block body %}
+
+{% load static %}
+
+
+
+                <article class="content responsive-tables-page">
+                    <div class="title-block">
+                        <h1 class="title"> Bitacora </h1>
+                        <p class="title-description"> Verifique la Bitacora </p>
+                        <a href="{% url 'medicamentos:exportar_bitacora_pdf' %}" class="btn btn-primary">Exportar Bitácora a PDF</a>
+                    </div>
+                    <section class="section">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="card-title-block">
+                                            <section class="example">
+                                                <div class="table-responsive">
+                                                    <table id="example2" class="table table-striped table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Fecha</th>
+                                                                <th>Usuario</th>
+                                                                <th>Acción</th>
+                                                                <th>Descripción</th>
+                                                            </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for registro in registros %}
+                                                        <tr>
+                                                            <td>{{ registro.fecha }}</td>
+                                                            <td>{{ registro.usuario.username }}</td>
+                                                            <td>{{ registro.accion }}</td>
+                                                            <td>{{ registro.descripcion }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </section>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </section>
+                </article>
+            {% endblock %}
+                
+                

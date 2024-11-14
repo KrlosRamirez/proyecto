@@ -1,0 +1,120 @@
+{% extends "comun/base.html" %}
+{% block body %}
+
+<!-- Extiende una plantilla base para reutilizar la estructura común y define un bloque de contenido "body". -->
+
+<!-- NO MODIFICAR ---------------------------------->
+{% load static %}
+<script src='{% static "js/Eliminar.js" %}'></script>
+<!-- Carga un archivo de JavaScript estático llamado "Eliminar.js". Este archivo probablemente maneja acciones de eliminación de registros. -->
+<!-- FIN DE JAVASCRIPT ------------------------------------>
+
+<article class="content responsive-tables-page">
+    <!-- Contenedor principal para el contenido de la página. -->
+
+    <div class="title-block">
+        <h1 class="title"> Listado de Donantes </h1>
+        <!-- Título principal de la página. -->
+
+        <p class="title-description"> Verifique los Donantes agregados </p>
+        <!-- Descripción del contenido que se muestra en la página. -->
+    </div>
+
+    <section class="section">
+        <!-- Sección principal donde se colocará la tabla de donantes. -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Define una columna que ocupa todo el ancho en dispositivos medianos o más grandes. -->
+
+                <div class="card">
+                    <!-- Elemento visual que encapsula el contenido dentro de una "tarjeta". -->
+
+                    <div class="card-block">
+                        <div class="card-title-block">
+                            <h3 class="title"></h3>
+                            <!-- Espacio reservado para un título adicional dentro de la tarjeta. -->
+
+                            <div class="col-md-12">
+                                <a href="{% url 'medicamentos:agregar_donante' %}">
+                                    <button type="button" class="btn btn-oval btn-primary">Registrar Donante</button>
+                                    <!-- Botón para redirigir al formulario de registro de donantes. -->
+                                </a>
+                            </div>
+                        </div>
+
+                        <section class="example">
+                            <!-- Sección de ejemplo que contiene la tabla. -->
+
+                            <div class="table-responsive">
+                                <!-- Hace que la tabla sea adaptable para dispositivos pequeños. -->
+
+                                <table id="example2" class="table table-striped table-bordered table-hover">
+                                    <!-- Define una tabla con clases de estilo:
+                                         - `table-striped`: filas alternas con fondo gris.
+                                         - `table-bordered`: bordes visibles en las celdas.
+                                         - `table-hover`: cambia el color de la fila al pasar el cursor. -->
+
+                                    <thead>
+                                        <tr>
+                                            <!-- Encabezado de la tabla con títulos para cada columna. -->
+                                            <th>Cedula</th>
+                                            <th>Nombre Completo</th>
+                                            <th>Dirección</th>
+                                            <th>Teléfono</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Cuerpo de la tabla donde se mostrarán los registros de donantes. -->
+                                        {% for donante in donantes %}
+                                        <tr>
+                                            <!-- Bucle que recorre todos los donantes y los muestra en filas. -->
+                                            <td>{{ donante.codigo }}</td>
+                                            <!-- Muestra la cédula del donante. -->
+
+                                            <td>{{ donante.nombre }} {{ donante.apellido }}</td>
+                                            <!-- Muestra el nombre completo del donante. -->
+
+                                            <td>{{ donante.direccion }}</td>
+                                            <!-- Muestra la dirección del donante. -->
+
+                                            <td>{{ donante.telefono }}</td>
+                                            <!-- Muestra el número de teléfono del donante. -->
+
+                                            <td>
+                                                <!-- Opciones de acciones para cada donante. -->
+
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-wrench"></i>
+                                                        <!-- Botón de acciones con ícono de herramientas. -->
+                                                    </button>
+
+                                                    <div class="dropdown-menu">
+                                                        <!-- Menú desplegable con opciones. -->
+
+                                                        <a class="dropdown-item" href="{% url 'medicamentos:editar_donante' donante.pk %}">
+                                                            Editar Donante
+                                                        </a>
+                                                        <!-- Enlace para editar un donante específico. Se pasa el `pk` del donante en la URL. -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        <!-- Final del bucle for. -->
+                                    </tbody>
+                                </table>
+                                <!-- Fin de la tabla. -->
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+
+{% endblock %}
+<!-- Fin del bloque de contenido "body". -->

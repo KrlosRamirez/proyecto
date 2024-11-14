@@ -1,0 +1,48 @@
+{% load static %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title> ModularAdmin - Free Dashboard Theme | HTML Version </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+        <link rel="stylesheet" href="{% static 'css/vendor.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app.css' %}">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
+		<link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+		<link type="text/css" rel="stylesheet" href="{% static 'css/materialadmin.css' %}" />
+		<link type="text/css" rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+		<link type="text/css" rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}" />
+		 <link href="{% static 'sweetalert.css' %}" rel="stylesheet" />
+
+
+		{% block content %}
+
+		{% endblock %}
+
+		<title>{%block title%}{% endblock title%}</title>
+		<!-- BEGIN JAVASCRIPT -->
+		<script src="{% static 'js/libs/bootstrap/bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/core/AppForm.js' %}"></script>
+		<script src="{% static 'js/iziToast.js' %}"></script>
+    	<script src="{% static 'js/login.js' %}"></script>
+    	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    	<link rel="stylesheet" href="{% static 'css/iziToast.min.css' %}">
+    	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    	<link rel="stylesheet" href="{% static 'css/iziToast.min.css' %}">
+        <script src="{% static 'sweetalert-dev.js' %}"></script>
+		<!-- END JAVASCRIPT -->
+	</body>
+
+    {% block javascript %}
+	{% endblock %}
+
+</html>
+
+
+
+

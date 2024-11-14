@@ -1,0 +1,82 @@
+{% extends  'base2.html' %}
+
+{% load static %}
+
+{% load widget_tweaks %}
+
+
+{%block title%}IPASME{% endblock title%}
+
+{% block body%}
+
+<div align="center" class="col-md-3" style="padding: 0.2cm 0cm 0cm 0cm; width:100%; border-radius: 12px;" >
+    </div>
+    <div class="col-md-12 wow fadeInUp animated" style="background: #122f3b;  padding: 0.3cm 0.5cm 0cm 0.5cm; margin: 0cm 0cm 0.4cm 0cm; width:100%; border-radius: 12px;" >
+     <h2 align="center" style="color:white"><span class="glyphicon glyphicon-th-list"></span> DETALLES <span style="color:#F5B041;">Usuario</span> </h2>
+        </div>
+    <br>
+    <br>
+<section>
+  <div class="section-body">
+    <div class="row">
+      <!-- BEGIN  - FORM -->
+      <div class="col-sm-10 col-sm-offset-1">
+        <div class="card">
+          <div class="card-body">
+            <div class="row"> 
+              <div class="col-sm-12">
+                <a href="/list/">Regresar al Listado del Usuario</a>
+
+                <center>
+                  <h1>Detalles del Usuario</h1>
+                     
+                  
+                </center>
+              </div>
+              <div class="col-sm-5 col-sm-offset-1">
+                <h2>Datos personales del Usuario:
+                </h2>
+                <h3>
+                  Cedula: <strong> {{object.username}}</strong>
+                  <br> 
+                  Nombres:  <strong> {{object.first_name}}</strong>
+                  <br>
+                  Apellidos:  <strong> {{object.last_name}}</strong>
+                  <br>
+                  Email:  <strong> {{object.email}}</strong>
+                  <br>       
+                </h3>   
+              </div>
+
+                                                            
+
+                                                          
+      
+
+              
+                </div>
+          </div><!--end .card-body -->
+        </div><!--end .card -->
+
+      </div><!--end .col -->
+      <!-- END FORM - TIME ON SITE -->
+    </div><!--end .row -->
+  </div><!--end .section-body -->
+</section>
+<script src="{% static 'base/js/validar.js' %}"></script>
+<script src="{% static 'base/js/validfecha.js' %}"></script>
+<script src="{% static 'base/js/alertify.js' %}"></script>
+
+
+
+{% if messages %}
+  {% for message in messages %}
+    {% autoescape off %}{{ message }}{% endautoescape %}
+  {% endfor %}
+{% endif %}
+
+{% endblock %}
+
+
+
+

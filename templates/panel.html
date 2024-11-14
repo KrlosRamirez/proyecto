@@ -1,0 +1,80 @@
+{% extends "comun/base.html" %}
+
+{% block content %}
+<script>
+let numeroAdministradores = '{{ administradores }}'
+let numeroUsuarios = '{{ usuarios }}'
+
+</script>
+                <article class="content dashboard-page">
+                    <section class="section">
+                        <div class="row sameheight-container">
+                            <div class="col col-12 col-sm-12 col-md-12 col-xl-12 stats-col">
+                                <div class="card sameheight-item stats" data-exclude="xs">
+                                    <div class="card-block">
+                                        <div class="title-block">
+                                            <h4 class="title">Estadisticas de inventario</h4>
+                                            <p class="title-description">
+                                                {{ fecha }}
+                                            </p>
+                                        </div>
+                                        <div class="row row-sm stats-container">
+                                            <div class="col-8 col-sm-3 stat-col">
+                                                <div class="stat-icon">
+                                                    <i class="fa fa-users"></i>
+                                                </div>
+                                                <div class="stat">
+                                                    <div class="value">{{ agregar_proveedor }}</div>
+                                                    <div class="name">Proveedores registrados</div>
+                                                </div>
+                                                <div class="progress stat-progress">
+                                                    <div class="progress-bar" style="width: 100%;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-8 col-sm-3  stat-col">
+                                                <div class="stat-icon">
+                                                    <i  class="fa fa-users"></i>
+                                                </div>
+                                                <div class="stat">
+                                                    <div class="value">{{ Donantes }}</div>
+                                                    <div class="name">Cantidad de Donantes registrados</div>
+                                                </div>
+                                                <div class="progress stat-progress">
+                                                    <div class="progress-bar" style="width: 100%;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-8 col-sm-3  stat-col">
+                                                <div class="stat-icon">
+                                                    <i class="fa fa-users"></i>
+                                                </div>
+                                                <div class="stat">
+                                                    <div class="value">{{ Medicamentos }}</div>
+                                                    <div class="name">Cantidad de Medicamentos</div>
+                                                </div>
+                                                <div class="progress stat-progress">
+                                                    <div class="progress-bar" style="width: 100%;"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-8 col-sm-3  stat-col">
+                                                <div class="stat-icon">
+                                                    <i class="fa fa-users"></i>
+                                                </div>
+                                                <div class="stat">
+                                                    <div class="value">{{ cantidad_ninos }}</div>
+                                                    <div class="name">Cantidad de Medicamentos</div>
+                                                </div>
+                                                <div class="progress stat-progress">
+                                                    <div class="progress-bar" style="width: 100%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+                {% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'comun/base.html' %}
+
+{% block title %}Registrar Entrega{% endblock %}
+
+{% block content %}
+<article class="content forms-page">
+    <!-- Título y descripción según la acción (Agregar o Editar Entrega) -->
+    <div class="title-block">
+        {% if destinatario %}
+            <h3 class="title">Editar Entrega</h3>
+            <p class="title-description">Cambie los datos de la Entrega</p>
+        {% else %}
+            <h3 class="title">Agregar Entrega</h3>
+            <p class="title-description">Introduzca los datos de la Entrega</p>
+        {% endif %}
+    </div>
+
+    <section class="section">
+        <div class="row sameheight-container">
+            <div class="col-md-12">
+
+                <!-- Mensajes de confirmación según el modo (agregado/editado) -->
+                {% if modo == "agregado" or modo == "editado" %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="card card-primary">
+                                <div class="card-header"> 
+                                    <div class="header-block">
+                                        <em class="fa fa-check"></em>
+                                        <p class="title">{{ message }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+
+                <!-- Formulario principal para registrar o editar una entrega -->
+                <div class="card card-block sameheight-item">
+                    <form class="form" role="form" method="POST" autocomplete="off">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        <!-- Sección para agregar medicamentos -->
+                        <h3>Medicamentos</h3>
+                        {{ formset.management_form }}
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Medicamento</th>
+                                    <th>Cantidad</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for form in formset %}
+                                    <tr>
+                                        <td>{{ form.medicamento }}</td>
+                                        <td>{{ form.cantidad }}</td>
+                                        <td>{{ form.DELETE }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <!-- Botones para enviar o cancelar el formulario -->
+                        <center>
+                            <div class="dropdown-divider"></div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Ingresar</button>
+                                <a href="{% url 'medicamentos:lista_destinatarios' %}" class="btn btn-primary btn-raised">Cancelar</a>
+                            </div>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+
+
+{% endblock %}

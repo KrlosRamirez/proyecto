@@ -1,0 +1,60 @@
+input[type="submit"] {
+border: 1px solid red;
+margin-top: 26px;
+background: #a01818;
+color: #FFF;  
+}
+
+.FormGroup {
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.FormGroup input {
+  border-radius: 5px;
+  border: 1px solid #DDD;
+  height: 40px;
+  width: 100%;
+}
+
+.FormGroup select {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #DDD;
+  height: 40px;
+}
+.FormGroup datepicker {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #DDD;
+  height: 40px;
+}
+.area textarea {
+  padding: 15px;
+  border: none;
+  width: 100%;
+  font-family: 'Merriweather', serif;
+  margin-bottom: 30px;
+}
+
+.area textarea {
+  height: 150px;
+  min-height: 150px;
+  min-height: 250px;
+}
+input[type=number]::-webkit-outer-spin-button,
+
+input[type=number]::-webkit-inner-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+
+ 
+input[type=number] {
+
+    -moz-appearance:textfield;
+
+}

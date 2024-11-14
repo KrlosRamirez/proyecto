@@ -1,0 +1,34 @@
+{% extends 'medicamentos/base.html' %}
+
+{% block title %}Historial de Entregas{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Historial de Entregas</h1>
+    <a href="{% url 'exportar_entregas_csv' %}" class="btn btn-success mb-3">Exportar Entregas a CSV</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Código de Entrega</th>
+                <th>Destinatario</th>
+                <th>Fecha de Entrega</th>
+                <th>Medicamentos</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entrega in entregas %}
+            <tr>
+                <td>{{ entrega.codigo }}</td>
+                <td>{{ entrega.destinatario.nombre }}</td>
+                <td>{{ entrega.fecha_entrega }}</td>
+                <td>
+                    <ul>
+                        {% for medicamento in entrega.medicamentos.all %}
+                            <li>{{ medicamento.nombre }} ({{ medicamento.codigo }})</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

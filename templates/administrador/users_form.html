@@ -1,0 +1,224 @@
+{% extends  'comun/base.html' %}
+
+{% load static %}
+
+{% load widget_tweaks %}
+
+
+{%block title%}CLAP{% endblock title%}
+
+{% block body%}
+
+
+<article class="content forms-page">
+    <div class="title-block">
+        {% if editar  %}
+        <h3 class="title">Editar Usuario</h3>
+        <p class="title-description">Cambie los datos del Usuario</p>
+        {% else %}
+        <h3 class="title">Agregar Usuario</h3>
+        <p class="title-description">Introduzca los datos del Usuario</p>
+        {% endif %}
+    </div>
+    <section class="section">
+        <div class="row sameheight-container">
+            <div class="col-md-12">
+                {% if modo == "agregado" %}
+                {% if messages %}
+                {% for message in messages %}
+                <div class="card card-primary">
+                    <div class="card-header"> 
+                        <div class="header-block">
+                            <em class="fa fa-check"></em>
+                            <p class="title">{{ message }}</p>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+                {%endif%}
+                {%endif%}
+
+                {% if modo == "editado" %}
+                {% if messages %}
+                {% for message in messages %}
+                <div class="card card-primary">
+                    <div class="card-header"> 
+                        <div class="header-block">
+                            <em class="fa fa-check"></em>
+                            <p class="title">{{ message }}</p>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+                {%endif%}
+                {%endif%}
+
+                <div class="card card-block sameheight-item">
+                    <form class="form" role="form" action=""  autocomplete="off" method="post"> 
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.username.label }}</label>
+                                    {{ form.username|add_class:'form-control'|attr:"maxlength:8"|attr:"minlength:8"|attr:'validate:NUMEROS,ESPACIO'}}
+                                    <span class="help-block text-danger">{{form.errors.username.label }}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.first_name.label}}</label>
+                                    {{form.first_name|attr:"placeholder:Introduzca first_name"|add_class:'form-control'|attr:'validate:LETRAS,ENTER,ESPACIO'}}
+                                    <span class="help-block text-danger">{{ form.errors.first_name }}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.last_name.label}}</label>
+                                    {{form.last_name|attr:"placeholder:Introduzca  last_name"|add_class:'form-control'|attr:'validate:LETRAS,ENTER,ESPACIO'}}
+                                    <span class="help-block text-danger">{{ form.errors.last_name }}</span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.email.label}}</label>
+                                    {{form.email |add_class:'form-control'|attr:'minlength:6' |attr:'maxlength:40'}}
+                                    <span class="help-block text-danger">{{ form.errors.email }}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.password1.label}}</label>
+                                    {{form.password1|attr:"placeholder:Introduzca  Contraseña"|add_class:'form-control'}}
+                                    <span class="help-block text-danger">{{ form.errors.password1 }}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.password2.label}}</label>
+                                    {{form.password2|attr:"placeholder:Introduzca  Contraseña"|add_class:'form-control'}}
+                                    <span class="help-block text-danger">{{ form.errors.password2 }}</span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.is_admin.label}}</label>
+                                    {{form.is_admin}}
+                                    <span class="help-block text-danger">{{ form.errors.is_admin }}</span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.is_usuario.label}}</label>
+                                    {{form.is_usuario}}
+                                    <span class="help-block text-danger">{{ form.errors.is_usuario }}</span>
+                                </div>
+                            </div>
+ 
+                        <div class="dropdown-divider"></div>
+                        <center>
+                            <!-- Botones -->
+                            <div class="col-md-12 d-flex gap-3">
+                                <button class="btn btn-primary btn-oval" type="submit">Ingresar</button>
+                                <a href="{% url 'usuarios:list' %}" class="btn btn-secondary btn-oval">Cancelar</a>
+                            </div>
+                        </center>
+                    </div>                   
+                </div> 
+            </form>
+        </div>
+    </section>
+</article>
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/validar.js' %}"></script>
+<script src="{% static 'js/alertify.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'js/css/alertify.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'js/css/themes/default.css' %}">
+<script src="{% static 'js/validfecha_rep.js' %}"></script>
+
+
+<script type="text/javascript">
+    function Number(e){
+        tecla = (document.all) ? e.keyCode : e.which;
+        if (tecla==8){
+            return true;
+        }
+
+        patron =/[0-9]/;
+        tecla_final = String.fromCharCode(tecla);
+        return patron.test(tecla_final);
+    }
+</script>
+
+
+<script>
+    function letra(e){
+        tecla = (document.all) ? e.keyCode : e.which;
+        if (tecla==8){
+            return true;
+        }
+        patron =/[A-Za-z]/;
+        tecla_final = String.fromCharCode(tecla);
+        return patron.test(tecla_final);
+    }
+</script>
+
+<script>   
+// bindamos al evento submit del elemento formulario la función de validación
+document.getElementById("formulario").addEventListener("submit", function(event){
+    let hasError = false;
+    valor = document.getElementById('nombre').value;
+
+    if( valor == null || valor.length == 0) {
+      alert('Error, rellena el campo nombre');
+      hasError = true;
+    }
+
+    // obtenemos todos los input radio del grupo horario que esten chequeados
+    // si no hay ninguno lanzamos alerta
+    if(!document.querySelector('input[name="horario"]:checked')) {
+      alert('Error, rellena el campo horario');
+      hasError = true;
+      }
+
+    if(!registro.checked ){
+      alert('Debe aceptar el registro');
+      hasError = true;
+    }
+    
+    // si hay algún error no efectuamos la acción submit del form
+    if(hasError) event.preventDefault();
+});
+
+</script> 
+
+
+
+<div id="buscalo"></div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#id_buscalo').hide(3000).show(1000);
+    });
+</script>
+
+
+{% if messages %}
+  {% for message in messages %}
+    {% autoescape off %}{{ message }}{% endautoescape %}
+  {% endfor %}
+{% endif %}
+
+
+
+{% endblock %}

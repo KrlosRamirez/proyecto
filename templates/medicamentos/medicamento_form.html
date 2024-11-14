@@ -1,0 +1,188 @@
+{% extends  'comun/base.html' %}
+
+{% load static %}
+
+{% load widget_tweaks %}
+
+
+{%block title%}Inventario{% endblock title%}
+
+{% block body%}
+
+
+<article class="content forms-page">
+    <div class="title-block">
+        {% if medicamento %}
+        <h3 class="title">Editar Medicamentos</h3>
+        <p class="title-description">Cambie los datos del Medicamentos</p>
+        {% else %}
+        <h3 class="title">Agregar Medicamentos</h3>
+        <p class="title-description">Introduzca los datos del Medicamentos</p>
+        {% endif %}
+    </div>
+    <section class="section">
+        <div class="row sameheight-container">
+            <div class="col-md-12">
+                {% if modo == "agregado" %}
+                {% if messages %}
+                {% for message in messages %}
+                <div class="card card-primary">
+                    <div class="card-header"> 
+                        <div class="header-block">
+                            <em class="fa fa-check"></em>
+                            <p class="title">{{ message }}</p>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+                {%endif%}
+                {%endif%}
+
+                {% if modo == "editado" %}
+                {% if messages %}
+                {% for message in messages %}
+                <div class="card card-primary">
+                    <div class="card-header"> 
+                        <div class="header-block">
+                            <em class="fa fa-check"></em>
+                            <p class="title">{{ message }}</p>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+                {%endif%}
+                {%endif%}
+
+                <div class="card card-block sameheight-item">
+                    <form class="form" role="form" action=""  autocomplete="off" method="post"> 
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Código</label>
+                                    {% if form.instance.codigo %}
+                                        <p>{{ form.instance.codigo }}</p>
+                                    {% else %}
+                                        <p>Se generará automáticamente al guardar</p>
+                                    {% endif %}
+                                </div>                                
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.benefactor.label }}</label>
+                                    {{form.benefactor| add_class:'form-control select2-list' |attr:'id:benefactor' }}
+                                    <span class="help-block text-danger">{{form.errors.benefactor.label }}</span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>{{form.tipo_medicamento.label }}</label>
+                                    {{form.tipo_medicamento |add_class:'form-control'}}
+                                    <span class="help-block text-danger">{{form.errors.tipo_medicamento.label }}</span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.nombre.label}}</label>
+                                    {{form.nombre|attr:"placeholder:Introduzca Nombre del Medicamento"|add_class:'form-control'|attr:'validate:LETRAS,ENTER,ESPACIO'}}
+                                    <span class="help-block text-danger">{{ form.errors.nombre }}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>{{form.cantidad.label }}</label>
+                                    {{ form.cantidad |add_class:'form-control'|attr:"placeholder:Introduzca Cantidad"|attr:'validate:NUMEROS,ENTER,ESPACIO'|attr:'minlength:8' |attr:'maxlength:8' }}
+                                    <span class="help-block text-danger">{{form.errors.cantidad.label }}</span>
+                                </div>
+                            </div>
+
+                            
+
+
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>{{form.fecha_produccion.label }}</label>
+                                    <p>{{form.fecha_produccion |add_class:'form-control form-control'}}</p>
+                                    <span class="help-block text-danger">{{ form.errors.fecha_produccion }}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>{{form.fecha_vencimiento.label }}</label>
+                                    {% comment %} <input class="form-control form-control" onkeydown="return true" id="id_fecha_vencimiento" name="fecha_vencimiento" type="date" autocomplete="off"> {% endcomment %}
+                                    {% comment %} este de abajo{% endcomment %}
+                                    <p>{{form.fecha_vencimiento |add_class:'form-control form-control'}}</p>
+                                    <span class="help-block text-danger">{{ form.errors.fecha_vencimiento }}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.concentracion.label }}</label>
+                                    {{ form.concentracion |add_class:'form-control' }}
+                                    <span class="help-block text-danger">{{form.errors.concentracion.label }}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.descripcion.label }}</label>
+                                    {{ form.descripcion |add_class:'form-control' }}
+                                    <span class="help-block text-danger">{{form.errors.descripcion.label }}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.componentes.label }}</label>
+                                    {{ form.componentes |add_class:'form-control' }}
+                                    <span class="help-block text-danger">{{form.errors.componentes.label }}</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+                        <center>
+                            <center>
+                                <div class="col-md-12 d-flex gap-3">
+                                    <button class="btn btn-primary btn-oval" type="submit">Ingresar</button>
+                                    <a href="{% url 'medicamentos:lista_medicamentos' %}" class="btn btn-secondary btn-oval">Cancelar</a>
+                                </div>
+                            </center>
+                        </center>
+                    </div>                   
+                </div> 
+            </form>
+        </div>
+    </section>
+</article>
+
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/validar.js' %}"></script>
+<script src="{% static 'js/alertify.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'js/css/alertify.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'js/css/themes/default.css' %}">
+<script src="{% static 'js/validfecha_rep.js' %}"></script>
+<script src="{% static 'js/select2/select2.min.js' %}"></script>
+
+
+{% if messages %}
+  {% for message in messages %}
+    {% autoescape off %}{{ message }}{% endautoescape %}
+  {% endfor %}
+{% endif %}
+
+
+
+{% endblock %}

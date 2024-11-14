@@ -1,0 +1,80 @@
+{% extends "comun/base.html" %}
+
+{% block content %}
+<article class="content forms-page">
+    <!-- Título y descripción del contenido -->
+    <div class="title-block">
+        <h3 class="title">Entrega número #{{ entrega.id }}</h3>
+        <p class="title-description">Datos de la factura seleccionada</p>
+    </div>
+
+    <!-- Sección principal -->
+    <section class="section">
+        <div class="row">
+            <!-- Botón para volver a la página de Entregas -->
+            <div class="col-md-12">
+                <a href="{% url 'medicamentos:entregas' %}" class="btn btn-info btn-lg">
+                    <em class="fa fa-angle-left"></em>
+                    Volver a Entregas
+                </a>
+            </div>
+
+            <!-- Tarjeta con el código de la entrega -->
+            <div class="col-xl-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <div class="header-block">
+                            <p class="title">Código</p>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <p>{{ entrega.codigo }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta con la información del destinatario -->
+            <div class="col-xl-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <div class="header-block">
+                            <p class="title">Destinatario</p>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <p>{{ destinatario.cedula_identidad }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta con el monto subtotal de la factura -->
+            <div class="col-xl-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <div class="header-block">
+                            <p class="title">Monto Sub-total de la factura</p>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <p>{{ factura.sub_monto }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta con el monto total de la factura -->
+            <div class="col-xl-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <div class="header-block">
+                            <p class="title">Monto total de la factura</p>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <p>{{ factura.monto_general }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+{% endblock %}
