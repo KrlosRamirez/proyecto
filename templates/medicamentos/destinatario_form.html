@@ -60,7 +60,17 @@
 
                         <div class="row">
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label>{{ form.tipo_n.label }}</label>
+                                    {{ form.tipo_n|add_class:"form-control" }}
+                                    {% if form.tipo_n.errors %}
+                                        <span class="help-block text-danger">{{ form.tipo_n.errors }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>{{form.cedula_identidad.label}}</label>
                                     {{form.cedula_identidad|attr:"placeholder:Introduzca Documento de Identidad"|add_class:'form-control'|attr:'validate:NUMEROS,ENTER,ESPACIO'}}
@@ -72,11 +82,18 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>{{form.nombre.label}}</label>
-                                    {{form.nombre|attr:"placeholder:Introduzca nombres"|add_class:'form-control'|attr:'validate:LETRAS,ENTER,ESPACIO'}}
+                                    {{form.nombre|attr:"placeholder:Introduzca nombres y apellido"|add_class:'form-control'|attr:'validate:LETRAS,ENTER,ESPACIO'}}
                                     <span class="help-block text-danger">{{ form.errors.nombre }}</span>
                                 </div>
                             </div>
 
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.apellido.label}}</label>
+                                    {{form.apellido|attr:"placeholder:Introduzca apellido"|add_class:'form-control'|attr:'validate:LETRAS,ENTER,ESPACIO'}}
+                                    <span class="help-block text-danger">{{ form.errors.apellido }}</span>
+                                </div>
+                            </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">

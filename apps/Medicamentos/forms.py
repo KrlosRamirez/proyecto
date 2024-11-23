@@ -1,9 +1,11 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import Medicamento, Destinatario, Entrega, EntregaItem, Donante, Insumo, Proveedor, Bitacora, Benefactor
+from .models import Medicamento, Destinatario, Entrega, EntregaItem, Insumo, Bitacora, Benefactor, RegistroMedicamento
 import datetime
 from django.core.exceptions import ValidationError
+
+#____________________________________________________________________________________________________________
 
 class RegistroForm(UserCreationForm):
     class Meta:
@@ -28,23 +30,15 @@ class RegistroForm(UserCreationForm):
             raise forms.ValidationError('La Cédula de Identidad debe tener entre 7 y 9 dígitos.')
         return username
 
+#____________________________________________________________________________________________________________
+
 class CustomAuthenticationForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(CustomAuthenticationForm, self).__init__(*args, **kwargs)
         self.fields['username'].label = 'Cédula de Identidad'
         self.fields['username'].help_text = 'Ingrese su Cédula de Identidad sin puntos ni guiones.'
 
-class DonanteForm(forms.ModelForm):
-    class Meta:
-        model = Donante
-        fields = ['codigo', 'nombre', 'apellido', 'direccion', 'telefono']
-        labels = {
-            'codigo': 'Cédula',
-            'nombre': 'Nombres',
-            'apellido': 'Apellidos',
-            'direccion': 'Dirección',
-            'telefono': 'Teléfono',
-        }
+#____________________________________________________________________________________________________________
 
 class InsumoForm(forms.ModelForm):
     class Meta:
@@ -52,12 +46,12 @@ class InsumoForm(forms.ModelForm):
         fields = ['descripcion', 
                   'cantidad', 
                   'fecha_recepcion', 
-                  'donante']
+                  'benefactor']
         labels = {
             'descripcion': 'Descripción',
             'cantidad': 'Cantidad',
             'fecha_recepcion': 'Fecha de Recepción',
-            'donante': 'Donante',
+            'benefactor': 'Benefactor',
         }
 
         widgets = {
@@ -70,6 +64,8 @@ class InsumoForm(forms.ModelForm):
             raise forms.ValidationError('La fecha de recepción no puede ser futura.')
         return fecha
 
+#____________________________________________________________________________________________________________
+
 class MedicamentoForm(forms.ModelForm):
     class Meta:
         model = Medicamento
@@ -77,99 +73,162 @@ class MedicamentoForm(forms.ModelForm):
             'id',
             'nombre',
             'descripcion',
-            'cantidad',
-            'fecha_vencimiento',
-            'benefactor',
             'tipo_medicamento',
+            'tipo_farmac',
             'componentes',
             'concentracion',
-            'fecha_produccion',
         ]
         labels = {
             'nombre': 'Nombre',
             'descripcion': 'Descripción',
-            'cantidad': 'Cantidad',
             'fecha_vencimiento': 'Fecha de Vencimiento',
-            'benefactor': 'Benefactor',
-            'tipo_medicamento': 'Tipo de Medicamento',
             'componentes': 'Componentes',
             'concentracion': 'Concentración',
-            'fecha_produccion': 'Fecha de Producción',
+            'tipo_farmac' : 'Forma farmaceutica',
         }
         widgets = {
-            'fecha_vencimiento': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
-            'fecha_produccion': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
+
+        }
+
+class RegistroMedicamentoForm(forms.ModelForm):
+    class Meta:
+        model = RegistroMedicamento
+        fields = [
+            'medicamento',
+            'benefactor',
+            'produccion_tanda',
+            'vencimiento_tanda',
+            'cantidad',
+        ]
+        labels = {
+            'medicamento': 'Medicamento',
+            'benefactor': 'Benefactor',
+            'produccion_tanda': 'fecha de produccion',
+            'vencimiento_tanda': 'fecha de venciento',
+            'cantidad': 'Cantidad'
+        }
+        widgets = {
+            'vencimiento_tanda': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
+            'produccion_tanda': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
         }
 
     def __init__(self, *args, **kwargs):
-        super(MedicamentoForm, self).__init__(*args, **kwargs)
+        super(RegistroMedicamentoForm, self).__init__(*args, **kwargs)
         if self.instance and self.instance.pk:
-            self.fields['fecha_vencimiento'].initial = self.instance.fecha_vencimiento
-            self.fields['fecha_produccion'].initial = self.instance.fecha_produccion
+            self.fields['vencimiento_tanda'].initial = self.instance.vencimiento_tanda
+            self.fields['produccion_tanda'].initial = self.instance.produccion_tanda
 
 
-
-    def clean_fecha_vencimiento(self):
-        fecha_vencimiento = self.cleaned_data['fecha_vencimiento']
-        if fecha_vencimiento <= datetime.date.today():
+    def clean_vencimiento_tanda(self):
+        vencimiento_tanda = self.cleaned_data['vencimiento_tanda']
+        if vencimiento_tanda <= datetime.date.today():
             raise forms.ValidationError('La fecha de vencimiento debe ser futura.')
-        return fecha_vencimiento
+        return vencimiento_tanda
 
-    def clean_fecha_produccion(self):
-        fecha_produccion = self.cleaned_data['fecha_produccion']
-        if fecha_produccion > datetime.date.today():
+    def clean_produccion_tanda(self):
+        produccion_tanda = self.cleaned_data['produccion_tanda']
+        if produccion_tanda > datetime.date.today():
             raise forms.ValidationError('La fecha de producción no puede ser futura.')
-        return fecha_produccion
+        return produccion_tanda
+
+#____________________________________________________________________________________________________________
 
 class DestinatarioForm(forms.ModelForm):
     class Meta:
         model = Destinatario
-        fields = ['cedula_identidad', 'nombre', 'fecha_nacimiento', 'direccion', 'telefono']
+        fields = [
+            'tipo_n',
+            'cedula_identidad', 
+            'nombre',     
+            'apellido',
+            'fecha_nacimiento', 
+            'direccion', 
+            'telefono',
+        ]
+        
         widgets = {
-            'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),
+            'fecha_nacimiento': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
         }
         labels = {
-            'cedula_identidad': 'Cédula de Identidad',
+            'tipo_n': 'Nacionalidad',
+            'cedula_identidad': 'Documento de Identidad',
             'nombre': 'Nombre',
+            'apellido': 'Apellido',
             'fecha_nacimiento': 'Fecha de Nacimiento',
             'direccion': 'Dirección',
             'telefono': 'Teléfono',
         }
-        widgets = {
-            'fecha_nacimiento': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
-        }
+
+    def __init__(self, *args, **kwargs):
+        super(DestinatarioForm, self).__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields['fecha_nacimiento'].initial = self.instance.fecha_nacimiento
+
+    def clean_fecha_nacimiento(self):
+        fecha_nacimiento = self.cleaned_data['fecha_nacimiento']
+        edad = (datetime.date.today() - fecha_nacimiento).days // 365
+        if edad < 18:
+            raise forms.ValidationError('El destinatario debe ser mayor de 18 años.')
+        return fecha_nacimiento
+
+    def clean_cedula_identidad(self):
+        cedula_identidad = self.cleaned_data['cedula_identidad']
+        if Destinatario.objects.filter(cedula_identidad=cedula_identidad).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError('El documento de identidad ya está registrado.')
+        return cedula_identidad
+
+    def clean_telefono(self):
+        telefono = self.cleaned_data['telefono']
+        if Destinatario.objects.filter(telefono=telefono).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError('El telefono ya está registrado.')
+        if not telefono.isdigit():
+            raise forms.ValidationError('El teléfono debe contener solo números.')
+        if len(telefono) < 10 or len(telefono) > 15:
+            raise forms.ValidationError('El teléfono debe tener entre 10 y 15 dígitos.')
+        return telefono
+
+#____________________________________________________________________________________________________________
 
 class EntregaForm(forms.ModelForm):
     class Meta:
         model = Entrega
-        fields = ['codigo', 'destinatario', 'fecha_entrega', 'observaciones']
+        fields = [
+            'destinatario', 
+            'observaciones',
+            ]
+        labels = {
+            'destinatario': 'Beneficiario',
+            'observaciones': 'Observaciones',
+            
+        }
         widgets = {
-            'codigo':forms.NumberInput(attrs = {'class':'form-control','id':'codigo'}),
             'destinatario': forms.Select(attrs={'class':'form-control','id':'destinatario'}),
             'observaciones':forms.TextInput(attrs = {'class':'form-control','id':'direccion'}),
-            'fecha_entrega':forms.DateInput(format=('%d-%m-%Y'),attrs={'id':'hasta','class':'form-control','type':'date'} ),
-
-        }
-        labels = {
-            'codigo': 'Código de Entrega',
-            'destinatario': 'Destinatario',
-            'fecha_entrega': 'Fecha de Entrega',
-            'observaciones': 'Observaciones',
         }
 
 class EntregaItemForm(forms.ModelForm):
     class Meta:
         model = EntregaItem
-        fields = ['medicamento', 'cantidad']
+        fields = [
+            'medicamento', 
+            'cantidad',
+            'benefactor',
+            'lote'
+            ]
         widgets = {
             'medicamento': forms.Select(attrs={'class':'form-control','id':'destinatario'}),
-            'cantidad':forms.NumberInput(attrs = {'class':'form-control','id':'codigo'}),
+            'cantidad':forms.NumberInput(attrs = {'class':'form-control','id':'cantidad'}),
+            'benefactor' :  forms.Select(attrs={'class':'form-control','id':'benefactor'}),
 
         }
         labels = {
             'medicamento': 'Medicamento',
             'cantidad': 'Cantidad',
+            'benefactor': 'Benefactor',
+            'lote' : 'Lote de medicamento'
         }
+
+#____________________________________________________________________________________________________________
 
 class BaseEntregaItemFormSet(forms.BaseInlineFormSet):
     def clean(self):
@@ -181,36 +240,16 @@ class BaseEntregaItemFormSet(forms.BaseInlineFormSet):
                 if cantidad > medicamento.cantidad:
                     raise forms.ValidationError(
                         f"No hay suficiente stock de {medicamento.nombre}. Disponible: {medicamento.cantidad}"
-                    )
-                
+                    )             
 
-
-
-class ProveedorForm(forms.ModelForm):
-    class Meta:
-        model = Proveedor
-        fields = ['nombre', 'telefono', 'direccion', 'email']
-        labels = {
-            'nombre': 'Nombres',
-            'direccion': 'Dirección',
-            'telefono': 'Teléfono',
-            'email': 'Correo Electrónico',
-        }
-        widgets = {
-        'nombre':forms.TextInput(attrs = {'class':'form-control','id':'nombre'}),
-        'telefono':forms.NumberInput(attrs={'class':'form-control','placeholder':'Introduzca Telefono','validate':'NUMEROS,ENTER,ESPACIO','minlength':'8','maxlength':'8'}),
-        'direccion':forms.TextInput(attrs = {'class':'form-control','id':'direccion'}),
-        'email':forms.EmailInput(attrs = {'class':'form-control','id':'email'})
-
-         }
+#____________________________________________________________________________________________________________
 
 class BitacoraForm(forms.ModelForm):
     class Meta:
         model = Bitacora
         fields = '__all__'
 
-
-#_____________________________________________________________________________________________
+#____________________________________________________________________________________________________________
 
 class BenefactorForm(forms.ModelForm):
     class Meta:
@@ -218,7 +257,10 @@ class BenefactorForm(forms.ModelForm):
         fields = [
             'codigo',
             'tipo',
+            'tipo_p',
+            'tipo_rif',
             'nombre',
+            'apellido',
             'cedula',
             'rif',
             'direccion',
@@ -228,7 +270,10 @@ class BenefactorForm(forms.ModelForm):
         labels = {
             'codigo': 'Código',
             'tipo': 'Tipo de Benefactor',
+            'tipo_p': 'Nacionalidad',
+            'tipo_rif': 'Tipo de Comercio',
             'nombre': 'Nombre',
+            'apellido': 'Apellido',
             'cedula': 'Cédula',
             'rif': 'RIF',
             'direccion': 'Dirección',
@@ -236,13 +281,15 @@ class BenefactorForm(forms.ModelForm):
             'email': 'Correo Electrónico',
         }
         widgets = {
+            'codigo': forms.TextInput(attrs={'readonly': 'readonly', 'class': 'form-control'}),
             'direccion': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Ingrese la dirección'}),
             'telefono': forms.TextInput(attrs={'placeholder': 'Ingrese Teléfono'}),
             'email': forms.EmailInput(attrs={'placeholder': 'Ingrese Correo Electrónico'}),
+            'nombre' :forms.TextInput(attrs = {'placeholder':'Nombre'}),
+            'apellido' :forms.TextInput(attrs = {'placeholder':'Apellido'}),
             'tipo': forms.Select(attrs={'class': 'form-control'}),
             'cedula': forms.TextInput(attrs={'placeholder': 'Ingrese Cédula'}),
             'rif': forms.TextInput(attrs={'placeholder': 'Ingrese RIF'}),
-            'codigo': forms.TextInput(attrs={'readonly': 'readonly', 'class': 'form-control'}),
         }
 
     def __init__(self, *args, **kwargs):

@@ -58,25 +58,6 @@
                         {% csrf_token %}
 
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Código</label>
-                                    {% if form.instance.codigo %}
-                                        <p>{{ form.instance.codigo }}</p>
-                                    {% else %}
-                                        <p>Se generará automáticamente al guardar</p>
-                                    {% endif %}
-                                </div>                                
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>{{form.benefactor.label }}</label>
-                                    {{form.benefactor| add_class:'form-control select2-list' |attr:'id:benefactor' }}
-                                    <span class="help-block text-danger">{{form.errors.benefactor.label }}</span>
-                                </div>
-                            </div>
-
 
                             <div class="col-sm-3">
                                 <div class="form-group">
@@ -86,12 +67,20 @@
                                 </div>
                             </div>
 
-
+                            
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>{{form.nombre.label}}</label>
                                     {{form.nombre|attr:"placeholder:Introduzca Nombre del Medicamento"|add_class:'form-control'|attr:'validate:LETRAS,ENTER,ESPACIO'}}
                                     <span class="help-block text-danger">{{ form.errors.nombre }}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>{{form.tipo_farmac.label }}</label>
+                                    {{form.tipo_farmac |add_class:'form-control'}}
+                                    <span class="help-block text-danger">{{form.errors.tipo_farmac.label }}</span>
                                 </div>
                             </div>
 
@@ -103,40 +92,21 @@
                                 </div>
                             </div>
 
-                            
-
-
-
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label>{{form.fecha_produccion.label }}</label>
-                                    <p>{{form.fecha_produccion |add_class:'form-control form-control'}}</p>
-                                    <span class="help-block text-danger">{{ form.errors.fecha_produccion }}</span>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label>{{form.fecha_vencimiento.label }}</label>
-                                    {% comment %} <input class="form-control form-control" onkeydown="return true" id="id_fecha_vencimiento" name="fecha_vencimiento" type="date" autocomplete="off"> {% endcomment %}
-                                    {% comment %} este de abajo{% endcomment %}
-                                    <p>{{form.fecha_vencimiento |add_class:'form-control form-control'}}</p>
-                                    <span class="help-block text-danger">{{ form.errors.fecha_vencimiento }}</span>
-                                </div>
-                            </div>
 
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>{{form.concentracion.label }}</label>
-                                    {{ form.concentracion |add_class:'form-control' }}
+                                    {{ form.concentracion |attr:"placeholder: Ejemplo 500 mg por tableta, 100 mg ml en solución inyectable "|add_class:'form-control' }}
                                     <span class="help-block text-danger">{{form.errors.concentracion.label }}</span>
                                 </div>
                             </div>
 
+                            <br>
+
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>{{form.descripcion.label }}</label>
-                                    {{ form.descripcion |add_class:'form-control' }}
+                                    {{ form.descripcion |attr:"placeholder: Antibiótico de amplio espectro utilizado para tratar infecciones bacterianas respiratorias, urinarias y de la piel. Presentación en tabletas recubiertas de 500 mg."|add_class:'form-control' }}
                                     <span class="help-block text-danger">{{form.errors.descripcion.label }}</span>
                                 </div>
                             </div>

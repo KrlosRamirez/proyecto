@@ -68,7 +68,7 @@ class UsersCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
     form_class = UsersModelForm
     model = Users
     template_name = 'administrador/users_form.html'
-    success_url = 'usuarios/add/'
+    success_url = '/'
 
     def form_valid(self, form):
         form = super(UsersCreateView, self).form_valid(form)

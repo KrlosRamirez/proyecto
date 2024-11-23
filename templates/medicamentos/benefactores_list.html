@@ -61,6 +61,7 @@
                                             <th>Codigo</th>
                                             <th>Tipo</th>
                                             <th>Nombre</th>
+                                            <th>Apellido</th>
                                             <th>Cédula/RIF</th>
                                             <th>Dirección</th>
                                             <th>Teléfono</th>
@@ -75,6 +76,7 @@
                                             <td>{{ benefactor.codigo }}</td>
                                             <td>{{ benefactor.get_tipo_display }}</td>
                                             <td>{{ benefactor.nombre }}</td>
+                                            <td>{{ benefactor.apellido }}</td>
                                             <td>
                                                 {% if benefactor.tipo == 'persona' %}
                                                     {{ benefactor.cedula }}
@@ -86,26 +88,31 @@
                                             <td>{{ benefactor.telefono }}</td>
                                             <td>{{ benefactor.email }}</td>
 
-                                            <td>
-                                                <!-- Opciones de acciones para cada donante. -->
+                                             <!-- cambiar a usuario -->
+                                            {% if user.is_superuser %}
+                                                <td>
+                                                    <!-- Opciones de acciones para cada donante. -->
 
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-wrench"></i>
-                                                        <!-- Botón de acciones con ícono de herramientas. -->
-                                                    </button>
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fa fa-wrench"></i>
+                                                            <!-- Botón de acciones con ícono de herramientas. -->
+                                                        </button>
 
-                                                    <div class="dropdown-menu">
-                                                        <!-- Menú desplegable con opciones. -->
+                                                        <div class="dropdown-menu">
+                                                            <!-- Menú desplegable con opciones. -->
 
-                                                        <a class="dropdown-item" href="{% url 'medicamentos:editar_benefactor' benefactor.pk %}">Editar</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="{% url 'medicamentos:eliminar_benefactor' benefactor.pk %}">Eliminar</a>
-                                                        <!-- Enlace para editar un donante específico. Se pasa el `pk` del donante en la URL. -->
+                                                            <a class="dropdown-item" href="{% url 'medicamentos:editar_benefactor' benefactor.pk %}">Editar</a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="{% url 'medicamentos:eliminar_benefactor' benefactor.pk %}">Eliminar</a>
+                                                            <!-- Enlace para editar un donante específico. Se pasa el `pk` del donante en la URL. -->
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                            
+                                            {% endif %}
+
                                         {% endfor %}
                                         <!-- Final del bucle for. -->
                                     </tbody>

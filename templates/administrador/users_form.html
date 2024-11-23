@@ -109,22 +109,31 @@
                             </div>
 
 
-                            <div class="col-sm-6">
+                            {% comment %} <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>{{form.is_admin.label}}</label>
                                     {{form.is_admin}}
                                     <span class="help-block text-danger">{{ form.errors.is_admin }}</span>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
 
 
-                            <div class="col-sm-6">
+                            {% comment %} <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>{{form.is_usuario.label}}</label>
                                     {{form.is_usuario}}
                                     <span class="help-block text-danger">{{ form.errors.is_usuario }}</span>
                                 </div>
+                            </div> {% endcomment %}
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>{{form.is_superuser.label}}</label>
+                                    {{form.is_superuser}}
+                                    <span class="help-block text-danger">{{ form.errors.is_superuser }}</span>
+                                </div>
                             </div>
+
  
                         <div class="dropdown-divider"></div>
                         <center>

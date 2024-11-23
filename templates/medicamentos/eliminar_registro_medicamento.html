@@ -1,0 +1,95 @@
+{% extends 'comun/base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Inventario{% endblock title %}
+
+{% block body %}
+<article class="content forms-page">
+    <section class="section">
+        <div class="card card-block sameheight-item">
+            <!-- Formulario para visualizar información del medicamento -->
+            <form class="form" role="form" action="" autocomplete="off" method="post"> 
+                {% csrf_token %}
+                
+                <div class="row">
+                    <!-- Campo: Código -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Código(*):</label>
+                            <p>{{ medicamento.pk }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Campo: Proveedor -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Proveedor(*):</label>
+                            <p>{{ medicamento.proveedor }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Campo: Nombre -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Nombre(*):</label>
+                            <p>{{ medicamento.medicamento }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Campo: Cantidad -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Cantidad(*):</label>
+                            <p>{{ medicamento.cantidad }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Campo: Fecha de Producción -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Fecha de producción(*):</label>
+                            <p>{{ medicamento.produccion_tanda }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Campo: Fecha de Vencimiento -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Fecha de vencimiento(*):</label>
+                            <p>{{ medicamento.vencimiento_tanda }}</p>
+                        </div>
+                    </div>
+
+
+                <!-- Botones de acción -->
+                <div class="dropdown-divider"></div>
+                <center>
+                    <div class="col-md-12 d-flex gap-3">
+                        <button class="btn btn-primary btn-oval" type="submit">Aceptar</button>
+                        <a href="{% url 'medicamentos:lista_medicamentos' %}" class="btn btn-secondary btn-oval">Cancelar</a>
+                    </div>
+                </center>
+            </form>
+        </div>
+    </section>
+</article>
+
+<!-- Scripts necesarios -->
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/validar.js' %}"></script>
+<script src="{% static 'js/alertify.js' %}"></script>
+<link rel="stylesheet" href="{% static 'js/css/alertify.css' %}">
+<link rel="stylesheet" href="{% static 'js/css/themes/default.css' %}">
+<script src="{% static 'js/validfecha_rep.js' %}"></script>
+<script src="{% static 'js/select2/select2.min.js' %}"></script>
+
+<!-- Mensajes de error o éxito -->
+{% if messages %}
+  {% for message in messages %}
+    {% autoescape off %}{{ message }}{% endautoescape %}
+  {% endfor %}
+{% endif %}
+
+{% endblock %}

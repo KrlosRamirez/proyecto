@@ -15,6 +15,12 @@ urlpatterns = [
     path('medicamentos/agregar/', views.agregar_medicamento, name='agregar_medicamento'),
     path('medicamentos/<int:pk>/editar/', views.editar_medicamento, name='editar_medicamento'),
     path('medicamentos/<int:pk>/eliminar/', views.eliminar_medicamento, name='eliminar_medicamento'),
+    path('medicamentos/registrar/', views.registrar_medicamento, name='registrar_medicamento'),
+    path('medicamentos/lregistrar/', views.lista_regis_medicamentos, name='lista_regis_medicamentos'),
+    path('medicamentos/registro/<int:pk>/editar/', views.editar_registro_medicamento, name='editar_registro_medicamento'),
+    path('medicamentos/registro/<int:pk>/eliminar/', views.eliminar_registro_medicamento, name='eliminar_registro_medicamento'),
+    # path('medicamentos/reporte/', views.reporte_registro_medicamentos, name='reporte_registro_medicamentos'),
+    path('medicamentos/reporte/', views.reporte_registro_medicamentos, name='reporte_registro_medicamentos'),
     path('historial/', views.historial, name='historial'),
     path('historial/exportar/', views.exportar_entregas_csv, name='exportar_entregas_csv'),
     path('entregas/', views.entregas, name='entregas'),
@@ -25,12 +31,6 @@ urlpatterns = [
     path('destinatarios/<int:pk>/editar/', views.editar_destinatario, name='editar_destinatario'),
     path('destinatarios/<int:pk>/eliminar/', views.eliminar_destinatario, name='eliminar_destinatario'),
     path('destinatarios/<int:pk>/', views.detalle_destinatario, name='detalle_destinatario'),
-    path('proveedores/', views.lista_proveedores, name='lista_proveedores'),
-    path('proveedores/agregar/', views.agregar_proveedor, name='agregar_proveedor'),
-    path('proveedores/<int:pk>/editar/', views.editar_proveedor, name='editar_proveedor'),
-    path('donantes/', views.lista_donantes, name='lista_donantes'),
-    path('donantes/agregar/', views.agregar_donante, name='agregar_donante'),
-    path('donantes/<int:pk>/editar/', views.editar_donante, name='editar_donante'),
     path('insumos/', views.lista_insumos, name='lista_insumos'),
     path('insumos/agregar/', views.agregar_insumo, name='agregar_insumo'),
     path('insumos/<int:pk>/editar/', views.editar_insumo, name='editar_insumo'),
@@ -41,5 +41,11 @@ urlpatterns = [
     path('benefactor/editar/<int:pk>/', views.editar_benefactor, name='editar_benefactor'),
     path('benefactor/eliminar/<int:pk>/', views.eliminar_benefactor, name='eliminar_benefactor'),
     path('benefactor/<int:pk>/', views.detalle_benefactor, name='detalle_benefactor'),
+
+    path('reporte/entregas/', views.generar_reporte_entregas, name='generar_reporte_entregas'),
+    path('reporte/registro_medicamentos/', views.generar_reporte_registro_medicamentos, name='generar_reporte_registro_medicamentos'),
+    path('reporte/bajo_stock/', views.reporte_bajo_stock, name='reporte_bajo_stock'),
+    path('reporte/proximos_a_vencer/', views.reporte_proximos_a_vencer, name='reporte_proximos_a_vencer'),
+
 ]
 

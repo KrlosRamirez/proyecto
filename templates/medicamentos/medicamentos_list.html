@@ -18,10 +18,15 @@
                                     <div class="card-block">
                                         <div class="card-title-block">
                                             <h3 class="title"></h3>
-                                            <div class="col-md-12">
-                                                <a href="{% url 'medicamentos:agregar_medicamento' %}">
-                                                <button type="button" class="btn btn-oval btn-primary">Registrar Medicamentos</button>
-                                            </a>
+                                            <div class="form-group">
+                                                
+                                                    <a href="{% url 'medicamentos:agregar_medicamento' %}">
+                                                    <button type="button" class="btn btn-oval btn-primary">Agregar nuevo medicamentos</button>
+                                                </a>
+                                            
+                                                    <a href="{% url 'medicamentos:lista_regis_medicamentos' %}">
+                                                    <button type="button" class="btn btn-oval btn-primary">Registrar entrada de Medicamentos</button>
+                                                </a>
                                             </div>
                                         </div>
                                         <section class="example">
@@ -29,54 +34,37 @@
                                                 <table id="example2" class="table table-striped table-bordered table-hover">
                                                     <thead>
                                                         <tr>
-                                                            <th>Código</th>
+                                                            <th>Código de Medicamento</th>
                                                             <th>Nombre</th>
                                                             <th>Tipo</th>
                                                             <th>Cantidad</th>
-                                                            <th>Fecha de Producción</th>
-                                                            <th>Fecha de Vencimiento</th>
-                                                            <th>Benefactor</th>
-                                                            {% if user.is_staff %}
-                                                            <th>Opciones</th>
-                                                            {% endif %}
+                                                            
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {% for medicamento in medicamentos %}
+                                                        {% for medicamento in medicamentos %}
                                                         <tr
-                                                            {% if medicamento in low_stock_medicamentos %}
+                                                            {% if registro in low_stock_medicamentos %}
                                                                 class="table-warning"
-                                                            {% elif medicamento in about_to_expire_medicamentos %}
+                                                            {% elif registro in about_to_expire_medicamentos %}
                                                                 class="table-danger"
                                                             {% endif %}
                                                         >
-                                                            <td>{{ medicamento.pk }}</td>
+                                                            <td>{{ medicamento.pk }}</td>                                   
                                                             <td>{{ medicamento.nombre }}</td>
                                                             <td>{{ medicamento.tipo_medicamento }}</td>
                                                             <td>{{ medicamento.cantidad }}</td>
-                                                            <td>{{ medicamento.fecha_produccion }}</td>
-                                                            <td>{{ medicamento.fecha_vencimiento }}</td>
-                                                            <td>{{ medicamento.benefactor.nombre }}</td>
-                                                            
-                                                            
-                                                            <td>
-                                                                <div class="btn-group">
-                                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></button>
 
-                                                                    <div class="dropdown-menu">
-                                                                        <a class="dropdown-item" href="{% url 'medicamentos:editar_medicamento' medicamento.pk %}">Editar Medicamento</a>
-                                                                        <div class="dropdown-divider"></div>
-                                                                        <a class="dropdown-item" href="{% url 'medicamentos:eliminar_medicamento' medicamento.pk %}">Eliminar Medicamento</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                            
+                                                            
+                                                        
+                                                        
                                                     {% endfor %}
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </section>
+                                        
                                     </div>
                                 </div>
                             </div>

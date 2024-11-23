@@ -52,8 +52,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
     foto = models.ImageField(upload_to='images/login/')
 
     is_active= models.BooleanField(_('Active'), default=True)
-    is_staff=models.BooleanField(_('Staff Status'), default=True)
-    is_superuser=models.BooleanField(_('Superuser Status'), default=False)
+    is_staff=models.BooleanField(_('Staff Status'), default=False)
+    is_superuser=models.BooleanField(_('Administrador Status'), default=False)
 
     date_joined = models.DateTimeField(_('Sate Joined'), default=timezone.now)
 

@@ -40,8 +40,8 @@
                         </div>
                         {% endif %}
 
-                        <div class="row">
-                            <div class="col-sm-6">
+                         <div class="row">
+                            {% comment %}<div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Código</label>
                                     {% if form.instance.codigo %}
@@ -50,7 +50,7 @@
                                         <p>Se generará automáticamente al guardar</p>
                                     {% endif %}
                                 </div>                                
-                            </div>
+                            </div> {% endcomment %}
 
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -62,7 +62,17 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6" id="cedula-group">
+                            <div class="col-sm-2" id="tipop-group">
+                                <div class="form-group">
+                                    <label>{{ form.tipo_p.label }}</label>
+                                    {{ form.tipo_p|add_class:"form-control" }}
+                                    {% if form.tipop.errors %}
+                                        <span class="help-block text-danger">{{ form.tipop.errors }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4" id="cedula-group">
                                 <div class="form-group">
                                     <label>{{ form.cedula.label }}</label>
                                     {{ form.cedula|add_class:"form-control" }}
@@ -72,7 +82,17 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6" id="rif-group">
+                            <div class="col-sm-2" id="tipo_rif-group">
+                                <div class="form-group">
+                                    <label>{{ form.tipo_rif.label }}</label>
+                                    {{ form.tipo_rif|add_class:"form-control" }}
+                                    {% if form.tipo_ri.errors %}
+                                        <span class="help-block text-danger">{{ form.tipo_rif.errors }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4" id="rif-group">
                                 <div class="form-group">
                                     <label>{{ form.rif.label }}</label>
                                     {{ form.rif|add_class:"form-control" }}
@@ -91,6 +111,20 @@
                                     {% endif %}
                                 </div>
                             </div>
+
+                            
+                            <div class="col-sm-6" id="apellido-group">
+                                <div class="form-group">
+                                    <label>{{ form.apellido.label }}</label>
+                                    {{ form.apellido|add_class:"form-control" }}
+                                    {% if form.apellido.errors %}
+                                        <span class="help-block text-danger">{{ form.apellido.errors }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+
+                           
 
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -143,16 +177,29 @@
         const tipo = document.getElementById('id_tipo').value;
         const cedulaGroup = document.getElementById('cedula-group');
         const rifGroup = document.getElementById('rif-group');
+        const apellidoGroup = document.getElementById('apellido-group');
+        const tipopGroup = document.getElementById('tipop-group');
+        const tiporifoGroup = document.getElementById('tipo_rif-group');
 
         if (tipo === 'persona') {
             cedulaGroup.style.display = 'block';
+            apellidoGroup.style.display = 'block'; 
+            tipopGroup.style.display = 'block';
             rifGroup.style.display = 'none';
+            tiporifoGroup.style.display = 'none';
+
         } else if (tipo === 'comercio') {
             cedulaGroup.style.display = 'none';
+            apellidoGroup.style.display = 'none'
+            tipopGroup.style.display = 'none';
             rifGroup.style.display = 'block';
+            tiporifoGroup.style.display = 'block';
         } else {
             cedulaGroup.style.display = 'none';
+            apellidoGroup.style.display = 'none'
+            tipopGroup.style.display = 'none';
             rifGroup.style.display = 'none';
+            tiporifoGroup.style.display = 'none';
         }
     }
 

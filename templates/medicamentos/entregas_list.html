@@ -43,7 +43,7 @@
                                         <!-- Iteración sobre las entregas -->
                                         {% for entrega in entregas %}
                                         <tr>
-                                            <td>{{ entrega.codigo }}</td>
+                                            <td>{{ entrega.pk }}</td>
                                             <td>{{ entrega.destinatario.nombre }} {{ entrega.destinatario.apellido }}</td>
                                             <td>{{ entrega.fecha_entrega }}</td>
                                             <td>
@@ -70,9 +70,17 @@
                                         </tr>
                                         {% endfor %}
                                     </tbody>
+                                    
                                 </table>
                             </div>
                         </section>
+                        <div class="form-group">
+                            <a href="{% url 'medicamentos:generar_reporte_registro_medicamentos' %}">
+                                <button type="button" class="btn btn-primary btn-lg">
+                                    <i class="fa fa-file-excel-o"></i> Descargar entrega en Excel
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

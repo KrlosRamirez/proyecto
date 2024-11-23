@@ -1,0 +1,22 @@
+{% extends "comun/base.html" %}
+
+{% block body %}
+<article class="content responsive-tables-page">
+    <div class="title-block">
+        <h1 class="title">Generar Reporte de Entregas</h1>
+        <p class="title-description">Presiona el botón para descargar el reporte.</p>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a href="{% url 'generar_reporte_entregas' %}">
+                    <button type="button" class="btn btn-primary btn-lg">
+                        <i class="fa fa-file-excel-o"></i> Descargar Reporte en Excel
+                    </button>
+                </a>
+            </div>
+        </div>
+    </section>
+</article>
+{% endblock %}

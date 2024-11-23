@@ -1,0 +1,60 @@
+<!-- medicamentos/reporte_registro_medicamentos.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte de Registro de Medicamentos</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            font-size: 12pt;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        /* Evitar el uso de propiedades no soportadas */
+    </style>
+</head>
+<body>
+    <h1>Reporte de Registro de Medicamentos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 15%;">Código de registro</th>
+                <th style="width: 20%;">Nombre</th>
+                <th style="width: 10%;">Cantidad</th>
+                <th style="width: 20%;">Fecha de Producción</th>
+                <th style="width: 20%;">Fecha de Vencimiento</th>
+                <th style="width: 15%;">Benefactor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for registro in registros %}
+            <tr>
+                <td>{{ registro.pk }}</td>
+                <td>{{ registro.medicamento.nombre }}</td>
+                <td>{{ registro.cantidad }}</td>
+                <td>{{ registro.produccion_tanda|date:"d/m/Y" }}</td>
+                <td>{{ registro.vencimiento_tanda|date:"d/m/Y" }}</td>
+                <td>{{ registro.benefactor.nombre }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

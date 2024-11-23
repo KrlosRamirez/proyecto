@@ -28,16 +28,12 @@
                                     </a>
                                     <ul class="sidebar-nav">
                                         <li><a href="{% url 'medicamentos:lista_benefactores' %}"><i class="fa fa-users"></i>  Benefactores</a></li>
-                                        {% comment %} <div class="dropdown-divider"></div>
-                                        <li><a href="{% url 'medicamentos:lista_proveedores' %}"><i class="fa fa-users"></i>  Proveedores</a></li>
-                                        <div class="dropdown-divider"></div>
-                                        <li><a href="{% url 'medicamentos:lista_donantes' %}"><i class="fa fa-shopping-bag"></i>  Donantes</a></li> {% endcomment %}
                                         <div class="dropdown-divider"></div>
                                         <li><a href="{% url 'medicamentos:lista_destinatarios' %}"><i class="fa fa-users"></i>  Beneficiario</a></li>
                                         <div class="dropdown-divider"></div>
                                         <li><a href="{% url 'medicamentos:lista_medicamentos' %}"><i class="fa fa-shopping-bag"></i>  Medicamentos</a></li>
-                                        <div class="dropdown-divider"></div>
-                                        <li><a href="{% url 'medicamentos:lista_insumos' %}"><i class="fa fa-shopping-bag"></i>  Insumos</a></li>
+                                        {% comment %} <div class="dropdown-divider"></div>
+                                        <li><a href="{% url 'medicamentos:lista_insumos' %}"><i class="fa fa-shopping-bag"></i>  Insumos</a></li> {% endcomment %}
                                     </ul>
                                 </li>
                                 <!--Fin de sub-menu de Registrar -->
@@ -65,9 +61,12 @@
                                         <i class="fa arrow"></i>
                                     </a>
                                     <ul class="sidebar-nav">
-                                        <li><a href=""><i class="fa fa-truck"></i>  Reportes Generales</a></li>
+                                        {% comment %} <li><a href="{% url 'medicamentos:reporte_registro_medicamentos' %}"><i class="fa fa-truck"></i>  Reportes Generales</a></li> {% endcomment %}
                                         <div class="dropdown-divider"></div>
-                                        <li><a href=""><i class="fa fa-truck"></i>  Reportes Especificos</a></li>
+                                        <li><a href="{% url 'medicamentos:generar_reporte_entregas' %}"><i class="fa fa-truck"></i>  Reportes entrega</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        {% comment %} <li><a href=""><i class="fa fa-truck"></i>  Reportes Especificos</a></li> {% endcomment %}
+                                        <li><a href="{% url 'medicamentos:generar_reporte_entregas' %}"><i class="fa fa-truck"></i>  Reportes registro de medicamentos</a></li>
                                     </ul>
                                 </li>
                                 <!--Fin de sub-menu de Reportes -->
